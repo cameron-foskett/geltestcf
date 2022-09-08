@@ -1,0 +1,17 @@
+{ "users": 
+    [
+        {
+            "customerID": "cam12",
+            "password": "hello"
+        },
+        {
+            "customerID": "tester",
+            "password": "hello"
+        },
+
+        {
+            "customerID": "test",
+            "password": "hello"
+        }
+    ]
+}
