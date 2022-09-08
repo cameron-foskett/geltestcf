@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@mui/styles';
 import { TextField, Button } from '@mui/material';
-import users from "../../json/users.json"
+import data from "../../json/users.json";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const classes = useStyles();
@@ -9,6 +10,8 @@ export default function Login() {
         customerID: '',
         password: '',
     });
+    const [error, setErrorMessage] = useState('')
+    const nav = useNavigate();
 
     const handleChange = (e: { target: { name: string; value: string; }; }) => {                
         setUserInfo({
@@ -16,6 +19,20 @@ export default function Login() {
           [e.target.name]: e.target.value,          
         });
       };
+
+      const handleOnClick = () => {
+          for (var user of data.users) 
+              {
+                if(user.customerID === userInfo.customerID && user.password === userInfo.password){
+                    console.log("YES")
+                    localStorage.setItem("loggedin", "true")
+                    nav('/accounts')
+                }
+                else{
+                    setErrorMessage("Sorry incorrect details")
+                }
+          }
+      }
 
     return(
     <>
@@ -27,6 +44,7 @@ export default function Login() {
         <div>
             <Button className={classes.button} variant="contained" onClick={handleOnClick}>Continue</Button>
         </div>
+        {error && <p className={classes.errorMsg}>{error}</p>}
     </div>
     </>
     );
@@ -47,6 +65,9 @@ const useStyles = makeStyles({
     image:{
         width:200,
         height:100,
+    },
+    errorMsg:{
+        color: "red"
     },
     textBoxes:{
         display: "block",
