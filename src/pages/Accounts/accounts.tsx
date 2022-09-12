@@ -21,8 +21,10 @@ export default function Accounts() {
   const classes = useStyles();
   const location:any = useLocation();
   const user: any = location.state.user;
-  const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState<any>([])
   let arr:any = [];
+  let uniqueChars : any[] = [];
+
 
   useEffect(() => {
     getUserData()
@@ -33,10 +35,12 @@ export default function Accounts() {
       if(account.customerID === user.customerID){
         arr.push(account)
       }
-      setUserInfo(arr);
-      
     } 
-  }
+    uniqueChars = arr.filter((element:any, index:any) => {
+      return arr.indexOf(element) === index;
+    })  
+    setUserInfo(uniqueChars);
+}
       
   return (
     <div className={classes.root}>
@@ -53,8 +57,8 @@ export default function Accounts() {
       <Grid container spacing={2}>
       <>
       {
-      userInfo.map((account) =>
-        <AccountCard props={account}/>
+      userInfo.map((account:any, index:Number) =>
+        <AccountCard props={account} key={index}/>
       )}
       </>
       </Grid>
@@ -63,7 +67,6 @@ export default function Accounts() {
 }
 
 function AccountCard (props:any){
-  console.log("here")
   const img = require('../../images/bank.jpeg')
   const classes = useStyles();
   return (
