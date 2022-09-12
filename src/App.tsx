@@ -16,13 +16,13 @@ function App() {
     setAuthTokens(data);
   };
 
-  var auth = localStorage.getItem("loggedin")
+  // var auth = localStorage.getItem("loggedin")
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/accounts" element={<Accounts auth={auth}/>} />
+            <Route path="/accounts" element={<Accounts />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

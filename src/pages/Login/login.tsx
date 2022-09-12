@@ -24,9 +24,8 @@ export default function Login() {
           for (var user of data.users) 
               {
                 if(user.customerID === userInfo.customerID && user.password === userInfo.password){
-                    console.log("YES")
                     localStorage.setItem("loggedin", "true")
-                    nav('/accounts')
+                    nav("/accounts", { state: { user: user } });
                 }
                 else{
                     setErrorMessage("Sorry incorrect details")

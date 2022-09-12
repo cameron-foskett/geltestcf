@@ -1,0 +1,24 @@
+{ "accounts": 
+    [
+        {
+            "customerID": "cam12",
+            "accountName": "123 Saver",
+            "accountNumber": "RE43112",
+            "balance": 0.01
+
+        },
+        {
+            "customerID": "tester",
+            "accountName": "Help to Buy",
+            "accountNumber": "AB12345",
+            "balance": 100 
+        },
+
+        {
+            "customerID": "test",
+            "accountName": "ISA",
+            "accountNumber": "PC56743",
+            "balance": 1265.78        
+        }
+    ]
+}
