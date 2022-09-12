@@ -8,6 +8,13 @@
 
         },
         {
+            "customerID": "cam12",
+            "accountName": "Help to Buy",
+            "accountNumber": "WE98356",
+            "balance": 40
+
+        },
+        {
             "customerID": "tester",
             "accountName": "Help to Buy",
             "accountNumber": "AB12345",

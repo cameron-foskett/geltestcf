@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
 
 import { makeStyles } from '@mui/styles';
 
@@ -17,25 +18,26 @@ export default function Accounts() {
   //     nav('/')
   //   }
   // },[auth])
-  const [userInfo, setUserInfo]:any = useState({})
   const classes = useStyles();
   const location:any = useLocation();
   const user: any = location.state.user;
+  const [userInfo, setUserInfo] = useState([])
+  let arr:any = [];
 
-  useEffect(()=>{
+  useEffect(() => {
     getUserData()
-  },[userInfo])
+  },[])
 
   const getUserData = () => {
-    for (var account of data.accounts) 
-        {
-          if(account.customerID === user.customerID){
-            setUserInfo(account)
-            console.log(userInfo)
-          }
-    }
-}
-  
+    for (var account of data.accounts){
+      if(account.customerID === user.customerID){
+        arr.push(account)
+      }
+      setUserInfo(arr);
+      
+    } 
+  }
+      
   return (
     <div className={classes.root}>
       <div className={classes.welcome}>
@@ -48,37 +50,47 @@ export default function Accounts() {
           Your accounts:
         </p>
       </div>
-      <AccountCard props={userInfo} />
+      <Grid container spacing={2}>
+      <>
+      {
+      userInfo.map((account) =>
+        <AccountCard props={account}/>
+      )}
+      </>
+      </Grid>
     </div>
   );
 }
 
 function AccountCard (props:any){
+  console.log("here")
   const img = require('../../images/bank.jpeg')
   const classes = useStyles();
   return (
     <>
-    <div className={classes.accountsCard}>
-        <Card sx={{ maxWidth: 345 }}>  
-          <CardMedia
-            component="img"
-            height="140"
-            image={img}
-            alt="bank"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {props.props.accountName}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {props.props.accountNumber}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              £{props.props.balance}
-            </Typography>
-          </CardContent>
-        </Card>
+    <Grid item xs={4}>
+      <div className={classes.accountsCard}>
+        <Card sx={{ maxWidth: 345 }} className={classes.card}>
+            <CardMedia
+              component="img"
+              height="140"
+              image={img}
+              alt="bank"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {props.props.accountName}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {props.props.accountNumber}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                £{props.props.balance}
+              </Typography>
+            </CardContent>
+          </Card>
         </div>
+      </Grid>
     </>
   )
 }
@@ -104,9 +116,15 @@ const useStyles = makeStyles({
   accountTitle:{
     textAlign: "left",
     marginLeft: "15%",
-    fontSize:"1.5rem"
+    fontSize:"1.5rem",
+    display: "flex",
+    flexDirection: "row",
+    width:"50%"
   },
   accountsCard:{
-    marginLeft: "15%"
+    marginLeft: "15%",
   },
+  card:{
+    flex:1
+  }
 });
